@@ -54,5 +54,13 @@ namespace MyEStore.Controllers
 			}
 		}
 
+
+		public IActionResult Login()
+		{
+			return View();
+		}
+
+
+
 	}
 }
