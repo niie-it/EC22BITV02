@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyEStore.Entities;
 using MyEStore.Models;
 
@@ -28,10 +29,9 @@ namespace MyEStore.Controllers
 			return View(result);
 		}
 
-		[HttpGet("/san-pham/{tenalias}")]
 		public IActionResult ChiTiet(string tenalias, int id)
 		{
-			var sp = _ctx.HangHoas.SingleOrDefault(p => p.MaHh == id);
+			var sp = _ctx.HangHoas.Include(p => p.MaLoaiNavigation).SingleOrDefault(p => p.MaHh == id);
 			if (sp != null)
 			{
 				return View(sp);
