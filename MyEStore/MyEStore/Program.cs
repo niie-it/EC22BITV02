@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyEStore.Entities;
+using MyEStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,14 @@ builder.Services.AddSession(options =>
 	options.Cookie.HttpOnly = true;
 	options.Cookie.IsEssential = true;
 });
+builder.Services.AddSingleton<PaypalClient>(x =>
+	new PaypalClient(
+		builder.Configuration["PayPalOptions:ClientId"],
+		builder.Configuration["PayPalOptions:ClientSecret"],
+		builder.Configuration["PayPalOptions:Mode"]
+	)
+
+);
 
 var app = builder.Build();
 

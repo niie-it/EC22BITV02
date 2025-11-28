@@ -27,5 +27,16 @@ namespace MyEStore.Controllers
 			}).ToList();
 			return View(result);
 		}
+
+		[HttpGet("/san-pham/{tenalias}")]
+		public IActionResult ChiTiet(string tenalias, int id)
+		{
+			var sp = _ctx.HangHoas.SingleOrDefault(p => p.MaHh == id);
+			if (sp != null)
+			{
+				return View(sp);
+			}
+			return RedirectToAction("Index");
+		}
 	}
 }
